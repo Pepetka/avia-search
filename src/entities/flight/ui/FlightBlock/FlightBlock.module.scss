@@ -1,0 +1,40 @@
+.FlightHeader {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+	align-items: center;
+	padding-inline: 10px;
+	box-sizing: border-box;
+	min-height: 50px;
+	background: var(--emphasis-color-1);
+	color: var(--base-color);
+	font-size: 1.5rem;
+	line-height: 1;
+}
+
+.carrier {
+	max-width: 300px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.price {
+	text-align: end;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+
+	span {
+		font-size: 1rem;
+		line-height: 1.2;
+	}
+}
+
+.hr {
+	display: block;
+	height: 0;
+	border: 0;
+	border-top: 2px solid var(--emphasis-color-1);
+	padding: 0;
+}

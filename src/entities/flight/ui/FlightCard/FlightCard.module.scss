@@ -1,20 +1,72 @@
 .FlightCard {
 	padding-inline: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.way {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+
+	.arrow {
+		width: 20px;
+		height: 20px;
+		color: var(--emphasis-color-1);
+	}
+}
+
+.clock {
+	width: 20px;
+	height: 20px;
+}
+
+.duration {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 5px;
 }
 
 .airportUid {
-	color: blue;
+	color: var(--emphasis-color-1);
+}
+
+.timeDate {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0 5px;
+	font-size: 1.2rem;
+}
+
+.timeDate1 {
+	flex-wrap: wrap;
+}
+
+.timeDate2 {
+	flex-wrap: wrap-reverse;
+}
+
+.timeDurationTime {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
 }
 
 .date {
-	color: blue;
+	color: var(--emphasis-color-1);
+	font-size: 1rem;
 }
 
 .transfers {
 	width: 90%;
 	margin-inline: auto;
 	position: relative;
-	color: orange;
+	color: var(--emphasis-color-2);
 
 	&:before, &:after {
 		content:"";
@@ -23,7 +75,32 @@
 		display: block;
 		position: absolute;
 		top: 50%;
-		background: var(--invert-color);
+		background: #a2a2a2;
+	}
+
+	&:before {
+		left: 0;
+	}
+
+	&:after {
+		right: 0;
+	}
+}
+
+.line {
+	width: 90%;
+	height: 1.5rem;
+	position: relative;
+	margin-inline: auto;
+
+	&:before, &:after {
+		content:"";
+		height: 1px;
+		width: calc(100% / 2);
+		display: block;
+		position: absolute;
+		top: 50%;
+		background: #a2a2a2;
 	}
 
 	&:before {

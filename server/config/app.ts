@@ -1,11 +1,11 @@
 import http from 'http';
-import express, {Express} from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import router from '../router/express.ts';
 
 class AppConfig {
-	server:  http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>;
+	server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>;
 
 	constructor(app: Express) {
 		this.server = http.createServer(app);

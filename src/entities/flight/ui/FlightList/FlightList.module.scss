@@ -4,8 +4,15 @@
 	gap: 30px;
 }
 
+.card {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 .chooseButton {
 	background: orange;
+	color: var(--base-color);
 	width: 100%;
 	text-align: center;
 	border-radius: 0;

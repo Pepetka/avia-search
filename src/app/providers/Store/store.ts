@@ -1,9 +1,11 @@
 import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 import { rtkApi } from '@/shared/api/rtkApi';
+import { searchFlightReducer } from '@/features/SearchFlight';
 import { StateSchema } from './types/StateSchema';
 
 export const createReduxStore = (initialState?: StateSchema) => {
 	const rootReducer: ReducersMapObject<StateSchema> = {
+		searchFlight: searchFlightReducer,
 		[rtkApi.reducerPath]: rtkApi.reducer,
 	};
 
