@@ -1,0 +1,14 @@
+.SearchFlights {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.chooseButton {
+	background: orange;
+	width: 100%;
+	text-align: center;
+	border-radius: 0;
+	height: 50px;
+	padding: 0;
+}

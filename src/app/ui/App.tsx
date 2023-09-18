@@ -1,10 +1,11 @@
 import '@/app/ui/App.css'
+import {SearchFlight} from '@/features/SearchFlight';
 
 function App() {
   return (
-      <div>
-        <h1>Text</h1>
-      </div>
+    <>
+      <SearchFlight />
+    </>
   )
 }
 

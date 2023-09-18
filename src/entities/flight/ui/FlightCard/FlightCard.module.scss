@@ -1,0 +1,36 @@
+.FlightCard {
+	padding-inline: 20px;
+}
+
+.airportUid {
+	color: blue;
+}
+
+.date {
+	color: blue;
+}
+
+.transfers {
+	width: 90%;
+	margin-inline: auto;
+	position: relative;
+	color: orange;
+
+	&:before, &:after {
+		content:"";
+		height: 1px;
+		width: calc((100% - 100px) / 2);
+		display: block;
+		position: absolute;
+		top: 50%;
+		background: var(--invert-color);
+	}
+
+	&:before {
+		left: 0;
+	}
+
+	&:after {
+		right: 0;
+	}
+}
