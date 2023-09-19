@@ -1,16 +1,17 @@
 import { memo } from 'react';
-import { FlightCard } from '../FlightCard/FlightCard.tsx';
+import { FlightResponse } from '@/shared/types/Flights';
+import { FlightCard } from '../FlightCard/FlightCard';
 import cls from './FlightBlock.module.scss';
 
 interface IFlightProps {
-	flight: any;
+	flight: FlightResponse;
 }
 
 export const FlightBlock = memo((props: IFlightProps) => {
 	const { flight } = props;
 
 	return (
-		<>
+		<div className={cls.FlightBlock}>
 			<div className={cls.FlightHeader}>
 				<div className={cls.carrier}>{flight.flight.carrier.caption}</div>
 				<div className={cls.price}>
@@ -21,6 +22,6 @@ export const FlightBlock = memo((props: IFlightProps) => {
 			<FlightCard leg={flight.flight.legs[0]} />
 			<hr className={cls.hr} />
 			<FlightCard leg={flight.flight.legs[1]} />
-		</>
+		</div>
 	);
 });

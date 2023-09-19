@@ -3,7 +3,7 @@ import { SearchFields } from '@/shared/types/search.ts';
 import { SearchFlightSchema } from '../types/searchFlightSchema';
 import { searchFieldsInitial } from '../const/searchFields';
 
-const initialState: SearchFlightSchema = {
+export const initialState: SearchFlightSchema = {
 	page: 1,
 	_limit: 10,
 

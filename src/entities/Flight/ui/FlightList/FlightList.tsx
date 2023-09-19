@@ -1,9 +1,10 @@
 import { memo } from 'react';
+import { FlightResponse } from '@/shared/types/Flights';
 import { FlightBlock } from '../FlightBlock/FlightBlock';
 import cls from './FlightList.module.scss';
 
 interface IFlightListProps {
-	flights: any[];
+	flights: FlightResponse[];
 }
 
 export const FlightList = memo((props: IFlightListProps) => {

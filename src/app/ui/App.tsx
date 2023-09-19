@@ -1,12 +1,8 @@
-import '@/app/ui/App.css';
-import { SearchFlight } from '@/features/SearchFlight';
+import { SearchFlights } from '@/features/SearchFlights';
+import '@/app/ui/App.scss';
 
 function App() {
-	return (
-		<>
-			<SearchFlight />
-		</>
-	);
+	return <SearchFlights />;
 }
 
 export default App;

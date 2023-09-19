@@ -2,7 +2,10 @@ import { rtkApi } from '@/shared/api/rtkApi';
 import { FlightResponse } from '@/shared/types/Flights';
 import { SearchFields } from '@/shared/types/search';
 
-type Response = FlightResponse[];
+type Response = {
+	flights: FlightResponse[];
+	endReached: boolean;
+};
 
 interface ISearchFlightApiArgs {
 	page: number;
@@ -21,6 +24,15 @@ interface ReqParams extends Record<string, string | boolean | number> {
 
 export const searchFlightsApi = rtkApi.injectEndpoints({
 	endpoints: (build) => ({
+		getCompaniesFilters: build.query<
+			{ companiesFilters: Record<string, number> },
+			void
+		>({
+			query: () => ({
+				method: 'Get',
+				url: '/getFilters',
+			}),
+		}),
 		fetchFlightsData: build.query<Response, ISearchFlightApiArgs>({
 			query: ({ page, limit, searchFlightFields }) => {
 				const reqParams: ReqParams = {
@@ -51,8 +63,21 @@ export const searchFlightsApi = rtkApi.injectEndpoints({
 					params: reqParams,
 				};
 			},
+			serializeQueryArgs: ({ endpointName, queryArgs }) => {
+				return endpointName + JSON.stringify(queryArgs.searchFlightFields);
+			},
+			merge: (currentData, responseData) => {
+				if (responseData.flights?.length) {
+					currentData.flights.push(...responseData.flights);
+				}
+				currentData.endReached = responseData.endReached;
+			},
+			forceRefetch: ({ currentArg, previousArg }) => {
+				return currentArg?.page !== previousArg?.page;
+			},
 		}),
 	}),
 });
 
-export const { useFetchFlightsDataQuery } = searchFlightsApi;
+export const { useFetchFlightsDataQuery, useGetCompaniesFiltersQuery } =
+	searchFlightsApi;
