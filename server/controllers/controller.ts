@@ -1,7 +1,12 @@
 import { Request, Response } from 'express';
 import db from '../database/database.ts';
+import { getFilterByTransfersNum } from '../helpers/getFilterByTransfersNum.ts';
+import { getFilterByPrice } from '../helpers/getFilterByPrice.ts';
+import { getFilterByCompanies } from '../helpers/getFilterByCompanies.ts';
+import { getSortByDuration } from '../helpers/getSortByDuration.ts';
+import { getSortByPrice } from '../helpers/getSortByPrice.ts';
 
-interface Params extends Record<string, string | boolean | number> {
+export interface Params extends Record<string, string | boolean | number> {
 	page: number;
 	limit: number;
 	sort: 'asc' | 'desc' | 'time';
@@ -22,55 +27,21 @@ export default class Controller {
 				result: { flights },
 			} = db.data;
 
+			const filterByTransfersNum = getFilterByTransfersNum(filter);
+			const filterByPrice = getFilterByPrice(priceFrom, priceTo);
+			const filterByCompanies = getFilterByCompanies(companiesArr);
+
+			const sortByTimeOrPrice =
+				sort === 'time' ? getSortByDuration() : getSortByPrice(sort);
+
 			const resFlights = flights
 				.filter(
-					({
-						flight: {
-							price: {
-								total: { amount },
-							},
-							legs: [{ segments }],
-						},
-					}) =>
-						((segments.length === 2 && filter === '1') ||
-							filter === '2' ||
-							(segments.length === 1 && filter === '0')) &&
-						+amount >= +priceFrom &&
-						+amount <= (+priceTo <= +priceFrom ? Infinity : +priceTo)
+					(flight) =>
+						filterByTransfersNum(flight) &&
+						filterByPrice(flight) &&
+						filterByCompanies(flight)
 				)
-				.filter(
-					({
-						flight: {
-							carrier: { caption: currentCompany },
-						},
-					}) =>
-						companiesArr.includes(currentCompany) || companiesArr.length === 0
-				)
-				.sort(
-					(
-						{
-							flight: {
-								price: {
-									total: { amount: a },
-								},
-								legs: [{ duration: timeA }],
-							},
-						},
-						{
-							flight: {
-								price: {
-									total: { amount: b },
-								},
-								legs: [{ duration: timeB }],
-							},
-						}
-					) =>
-						sort === 'asc'
-							? +a - +b
-							: sort === 'time'
-							? +timeA - +timeB
-							: +b - +a
-				)
+				.sort((prev, curr) => sortByTimeOrPrice(prev, curr))
 				.slice(+limit * (+page - 1), +limit * +page);
 
 			return res.json({

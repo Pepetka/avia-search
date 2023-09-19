@@ -20,7 +20,6 @@ export default defineConfig(({ mode }) => {
 		},
 		define: {
 			__API__: JSON.stringify(env.VITE_API),
-			__API_KEY__: JSON.stringify(env.VITE_API_KEY),
 		},
 	};
 });

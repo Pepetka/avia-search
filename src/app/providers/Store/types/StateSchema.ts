@@ -1,5 +1,5 @@
 import { rtkApi } from '@/shared/api/rtkApi';
-import { SearchFlightSchema } from '../../../../features/SearchFlights';
+import { SearchFlightSchema } from '@/features/SearchFlights';
 
 export interface StateSchema {
 	searchFlight: SearchFlightSchema;

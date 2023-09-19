@@ -1,0 +1,14 @@
+.PageError {
+	width: 100vh;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-inline: auto;
+}
+
+.reload {
+	width: 200px;
+}

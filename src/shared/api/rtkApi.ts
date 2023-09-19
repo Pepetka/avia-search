@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const rtkApi = createApi({
 	reducerPath: 'rtkApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: 'http://localhost:8000/api',
+		baseUrl: __API__,
 	}),
-	refetchOnReconnect: true,
+	keepUnusedDataFor: 0,
 	endpoints: () => ({}),
 });

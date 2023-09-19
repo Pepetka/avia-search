@@ -35,6 +35,7 @@ export const searchFlightsApi = rtkApi.injectEndpoints({
 		}),
 		fetchFlightsData: build.query<Response, ISearchFlightApiArgs>({
 			query: ({ page, limit, searchFlightFields }) => {
+				// Подготовка параметров для отправки
 				const reqParams: ReqParams = {
 					...searchFlightFields.companies.reduce(
 						(acc, curr) => ({
@@ -67,12 +68,14 @@ export const searchFlightsApi = rtkApi.injectEndpoints({
 				return endpointName + JSON.stringify(queryArgs.searchFlightFields);
 			},
 			merge: (currentData, responseData) => {
+				// Добавление новых данных к существующим
 				if (responseData.flights?.length) {
 					currentData.flights.push(...responseData.flights);
 				}
 				currentData.endReached = responseData.endReached;
 			},
 			forceRefetch: ({ currentArg, previousArg }) => {
+				// Изменение страницы вызывает запрос
 				return currentArg?.page !== previousArg?.page;
 			},
 		}),

@@ -6,6 +6,7 @@ import cls from './SearchFlightsForm.module.scss';
 
 interface ISearchFlightFormProps {
 	onSubmit?: (data: Inputs) => void;
+	isFetching: boolean;
 }
 
 type Inputs = SearchFields;
@@ -48,7 +49,7 @@ const priceInputs: { name: 'priceFrom' | 'priceTo'; label: string }[] = [
 ];
 
 export const SearchFlightsForm = memo((props: ISearchFlightFormProps) => {
-	const { onSubmit } = props;
+	const { onSubmit, isFetching } = props;
 	const { data, isLoading, isError } = useGetCompaniesFiltersQuery();
 	const [form, setForm] = useState<Inputs>({
 		sort: 'time',
@@ -124,6 +125,7 @@ export const SearchFlightsForm = memo((props: ISearchFlightFormProps) => {
 
 	return (
 		<form className={cls.SearchFlightsForm} onSubmit={onSubmitHandle}>
+			{/* Блок сортировки */}
 			<fieldset>
 				<legend>Сортировать</legend>
 				{sortInputs.map(({ name, label }) => (
@@ -140,6 +142,7 @@ export const SearchFlightsForm = memo((props: ISearchFlightFormProps) => {
 				))}
 			</fieldset>
 
+			{/* Блок фильтрации */}
 			<fieldset>
 				<legend>Фильтровать</legend>
 				{filterInputs.map(({ name, label }) => (
@@ -156,6 +159,7 @@ export const SearchFlightsForm = memo((props: ISearchFlightFormProps) => {
 				))}
 			</fieldset>
 
+			{/* Блок цены */}
 			<fieldset className={cls.priceBlock}>
 				<legend>Цена</legend>
 				{priceInputs.map(({ name, label }) => (
@@ -171,6 +175,7 @@ export const SearchFlightsForm = memo((props: ISearchFlightFormProps) => {
 				))}
 			</fieldset>
 
+			{/* Блок компаний, список которых подгружается с сервера */}
 			{!isError && (
 				<fieldset className={cls.companiesBlock}>
 					<legend>Авиакомпании</legend>
@@ -198,7 +203,13 @@ export const SearchFlightsForm = memo((props: ISearchFlightFormProps) => {
 				</fieldset>
 			)}
 
-			<input type="submit" hidden />
+			<button
+				disabled={!data || isFetching}
+				className={cls.submit}
+				type="submit"
+			>
+				{isFetching ? 'Загрузка...' : 'Искать'}
+			</button>
 		</form>
 	);
 });

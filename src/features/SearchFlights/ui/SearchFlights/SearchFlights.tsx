@@ -1,3 +1,4 @@
+import isEqual from 'lodash/isEqual';
 import { memo, JSX, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Loader } from '@/shared/ui/Loader';
@@ -31,10 +32,11 @@ export const SearchFlights = memo(() => {
 
 	const onSetSearchFields = useCallback(
 		(searchFields: SearchFields) => {
-			dispatch(searchFlightActions.setPage(1));
-			dispatch(searchFlightActions.setSearchFields(searchFields));
+			if (page !== 1) dispatch(searchFlightActions.setPage(1));
+			if (!isEqual(searchFields, searchFlightFields))
+				dispatch(searchFlightActions.setSearchFields(searchFields));
 		},
-		[dispatch]
+		[dispatch, page, searchFlightFields]
 	);
 
 	let listContent: JSX.Element;
@@ -75,7 +77,7 @@ export const SearchFlights = memo(() => {
 
 	return (
 		<div className={cls.SearchFlight}>
-			<SearchFlightsForm onSubmit={onSetSearchFields} />
+			<SearchFlightsForm onSubmit={onSetSearchFields} isFetching={isFetching} />
 			{listContent}
 		</div>
 	);

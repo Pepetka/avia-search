@@ -1,27 +1,78 @@
-# React + TypeScript + Vite
+## Стек
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### [Клиент](./src)
+- TypeScript
+- React
+- Redux Toolkit (RTK Query)
+- CSS Modules, SCSS
+- Vite
 
-Currently, two official plugins are available:
+### [Сервер](./server)
+- TypeScript
+- Express
+- lowdb
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Запуск проекта
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- `npm install` - установка зависимостей
+- `npm run dev` - запуск dev проекта
+- `npm run server` - запуск dev сервера
+- `npm run dev:server` - запуск dev проекта с сервером
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+## Скрипты
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- `npm run dev` - запуск dev проекта
+- `npm run dev:server` - запуск dev проекта с сервером
+- `npm run server` - запуск dev сервера
+- `npm run build` - сборка в prod режиме в папку dist
+- `npm run preview` - предпросмотр prod сборки
+- `npm run lint` - проверка ts файлов линтером
+- `npm run prepare` - прекоммит хуки с husky
+
+---
+
+## Архитектура проекта
+
+В проекте использовалась архитектурная методология для фронтенд проектов - **Feature-Sliced Design**
+
+Документация методологии - [Feature-Sliced Design (FSD)](https://feature-sliced.design/ru/docs)
+
+---
+
+## Линтинг и форматирование
+
+В проекте используется eslint для проверки typescript кода.
+Для форматирования используется prettier.
+
+##### Скрипты для запуска линтеров и форматирования
+- `npm run lint` - проверка ts файлов линтером с правилами из prettier
+
+---
+
+## pre-commit хуки
+В прекоммит хуках происходит проверка линтинга и форматирования измененных файлов, конфиг
+находится в [/.husky](./.husky)
+
+---
+
+## Работа с состоянием проекта
+
+Взаимодействие с данными осуществляется с помощью менеджера состояния redux toolkit.
+
+Запросы на сервер отправляются с применением [RTK query](./src/shared/api/rtkApi.ts).
+
+---
+
+## Сущности (entities) по FSD
+
+- [Flight](./src/entities/Flight)
+
+---
+
+## Фичи (features) по FSD
+
+- [SearchFlights](./src/features/SearchFlights)
